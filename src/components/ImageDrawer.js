@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { IconButton } from "@mui/material";
 import {
   RotateRight as RotateRightIcon,
   FlipToFront as FlipHorizontalIcon,
   FlipToBack as FlipVerticalIcon,
   FindReplace as FindReplaceIcon,
+  Crop as CropIcon,
 } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
 
-const ImageDrawer = ({ image, onUpdateImage, onClose }) => {
-  const [rotation, setRotation] = useState(image.transformations.rotation);
-  const [flipHorizontal, setFlipHorizontal] = useState(
+const ImageDrawer = ({ image, onUpdateImage, onClose, setCropVisible }) => {
+  const [rotation, setRotation] = React.useState(
+    image.transformations.rotation
+  );
+  const [flipHorizontal, setFlipHorizontal] = React.useState(
     image.transformations.horizontalFlip
   );
-  const [flipVertical, setFlipVertical] = useState(
+  const [flipVertical, setFlipVertical] = React.useState(
     image.transformations.verticalFlip
   );
 
@@ -45,7 +48,6 @@ const ImageDrawer = ({ image, onUpdateImage, onClose }) => {
     };
     onUpdateImage(updatedImage);
   };
-
   const handleReplaceImage = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -85,6 +87,12 @@ const ImageDrawer = ({ image, onUpdateImage, onClose }) => {
           onChange={handleReplaceImage}
           style={{ display: "none" }}
         />
+      </IconButton>
+      <IconButton
+        onClick={() => setCropVisible(true)}
+        style={{ color: "white" }}
+      >
+        <CropIcon />
       </IconButton>
     </div>
   );
