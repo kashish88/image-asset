@@ -1,4 +1,28 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-options {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.image-container:hover .image-options {
+  opacity: 1;
+  transform: translateY(0);
 }
