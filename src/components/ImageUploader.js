@@ -12,6 +12,7 @@ import {
   CheckCircle as CheckCircleIcon,
   Cancel as CancelIcon,
 } from "@mui/icons-material";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const ImageUploader = () => {
   const [images, setImages] = useState([]);
@@ -91,8 +92,16 @@ const ImageUploader = () => {
       <Button
         variant="contained"
         component="label"
-        style={{ marginBottom: "20px" }}
+        style={{
+          marginBottom: "20px",
+          display: "inline-flex",
+          alignItems: "center",
+          padding: "6px 16px",
+          gap: "4px",
+          minWidth: "auto",
+        }}
       >
+        <span style={{ fontSize: "16px", fontWeight: "bold" }}>+</span>
         Add
         <input type="file" hidden onChange={handleFileChange} />
       </Button>
@@ -120,10 +129,29 @@ const ImageUploader = () => {
             padding: "20px",
             borderRadius: "8px",
             width: "90%",
-            maxWidth: "800px",
+            maxWidth: "900px",
             overflow: "auto",
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <h2 style={{ margin: 0 }}>Add Asset</h2>
+            <IconButton
+              onClick={closeModal}
+              style={{
+                color: "#333",
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
+
           {selectedImage && !cropVisible && (
             <div style={{ position: "relative" }}>
               <img
@@ -187,8 +215,14 @@ const ImageUploader = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleUploadImage}
-                style={{ marginTop: "20px" }}
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
               >
+                <UploadFileIcon />
                 Upload Image
               </Button>
             </div>
