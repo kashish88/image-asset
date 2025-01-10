@@ -86,7 +86,14 @@ const ImageUploader = () => {
       setModalVisible(false);
     }
   };
-
+  const flipTransitionStyle = {
+    transition: "transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55)",
+    transformStyle: "preserve-3d",
+    transform: `
+      rotateY(${selectedImage?.transformations.horizontalFlip ? 180 : 0}deg) 
+      rotateX(${selectedImage?.transformations.verticalFlip ? 180 : 0}deg)
+      rotate(${selectedImage?.transformations.rotation}deg)`,
+  };
   return (
     <div>
       <Button
@@ -110,7 +117,24 @@ const ImageUploader = () => {
           .filter((image) => image.uploaded)
           .map((image) => (
             <div key={image.id} className="masonry-item">
-              <img src={image.src} alt="Uploaded" style={{ width: "100%" }} />
+              <img
+                src={image.src}
+                alt="Uploaded"
+                style={{
+                  width: "100%",
+                  transform: `rotate(${image.transformations.rotation}deg) 
+                        ${
+                          image.transformations.horizontalFlip
+                            ? "scaleX(-1)"
+                            : "scaleX(1)"
+                        } 
+                        ${
+                          image.transformations.verticalFlip
+                            ? "scaleY(-1)"
+                            : "scaleY(1)"
+                        }`,
+                }}
+              />
             </div>
           ))}
       </div>
@@ -161,19 +185,7 @@ const ImageUploader = () => {
                   width: "100%",
                   height: "auto",
                   cursor: "pointer",
-                  transform: `rotate(${
-                    selectedImage.transformations.rotation
-                  }deg) 
-                          ${
-                            selectedImage.transformations.horizontalFlip
-                              ? "scaleX(-1)"
-                              : "scaleX(1)"
-                          } 
-                          ${
-                            selectedImage.transformations.verticalFlip
-                              ? "scaleY(-1)"
-                              : "scaleY(1)"
-                          }`,
+                  ...flipTransitionStyle,
                 }}
                 onClick={() => setActionsVisible((prev) => !prev)}
               />
@@ -186,6 +198,7 @@ const ImageUploader = () => {
                   right: "10px",
                   color: "white",
                   zIndex: 1,
+                  backgroundColor: "#333",
                 }}
               >
                 {actionsVisible ? <CloseIcon /> : <EditIcon />}
